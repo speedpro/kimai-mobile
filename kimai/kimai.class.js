@@ -15,6 +15,7 @@ var Kimai =
     server: null,
     runningEntryId: null,
     logger: null,
+    translations: {},
 
     /**
      * Sets the URL where the JSON API is located.
@@ -226,6 +227,30 @@ var Kimai =
         if (this.logger !== null) {
             this.logger.debug(title, value);
         }
-    }
+    },
 
+    /**
+     * Adds a translation string
+     *
+     * @param name
+     * @param msg
+     */
+    addTranslation: function(name, msg)
+    {
+        this.translations[name] = msg;
+    },
+
+    /**
+     * Returns a translation string
+     *
+     * @param name
+     * @return string
+     */
+    getTranslation: function(name)
+    {
+        if (typeof this.translations[name] == 'undefined') {
+            return name;
+        }
+        return this.translations[name];
+    }
 };

@@ -17,19 +17,15 @@
  * along with Kimai; If not, see <http://www.gnu.org/licenses/>.
  */
 
+// load translations
+$translate = include(dirname(__FILE__) . '/language/en.php');
+
+// some configurations for the mobile app
 $mobileConfig = array(
     'headerFooterTheme' => 'a',
     'formTheme'         => 'a',
-    'errorTheme'        => 'b',
+    'errorTheme'        => 'b'
 );
-
-$translate = array(
-    'login_title'       => 'Please login',
-    'login_username'    => 'Username',
-    'login_password'    => 'Password',
-    'login_btn'         => 'Login',
-);
-
 
 /**
  * This file is the "Mobile Kimai interface".
@@ -41,15 +37,26 @@ $translate = array(
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Kimai Mobile: Easy mobile Time-Tracking v0.2</title>
+	<title>Kimai: mobile Time-Tracking v0.2</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-    <link rel="stylesheet"  href="kimai/kimai.mobile-1.0.css" />
+    <link rel="stylesheet"  href="kimai/kimai.mobile.css" />
     <script src="kimai/kimai.class.js"></script>
-	<script src="kimai/kimai.mobile-1.0.js"></script>
+	<script src="kimai/kimai.mobile.js"></script>
     <script src="json/json2.js"></script>
     <script src="json/jquery.zend.jsonrpc.js"></script>
+    <script>
+    $(document).ready(function(){
+        <?php
+        foreach($translate as $key => $value) {
+            echo 'Kimai.addTranslation("'.$key.'", "'.$value.'");'. PHP_EOL;
+        }
+        ?>
+
+        Kimai.setLogger(KimaiLogger);
+    });
+    </script>
 </head>
 <body>
 
@@ -61,14 +68,14 @@ $translate = array(
     </div>
     <div id="loginForm" data-role="content">
         <h2>
-            Please login
+            <?php echo $translate['login_title']; ?>
         </h2>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
                 <label for="username">
                     <?php echo $translate['login_username']; ?>
                 </label>
-                <input name="username" id="username" placeholder="" value="" type="text" />
+                <input name="username" id="username" autocapitalize="off" autocorrect="off" placeholder="" value="" type="text" />
             </fieldset>
         </div>
         <div data-role="fieldcontain">
@@ -96,11 +103,11 @@ $translate = array(
     </div>
     <div data-role="content">
         <h2 id="duration">
-            Please select the task you want to start
+            <?php echo $translate['task_title']; ?>
         </h2>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="projects" class="select">Choose project:</label>
+                <label for="projects" class="select"><?php echo $translate['choose_project']; ?></label>
                 <select name="projects" id="projects">
 
                 </select>
@@ -108,15 +115,15 @@ $translate = array(
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="tasks" class="select">Choose task:</label>
+                <label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
                 <select name="tasks" id="tasks">
 
                 </select>
             </fieldset>
         </div>
         <select id="recorder" name="recorder" data-role="slider" data-theme="c">
-            <option value="on">Stop</option>
-            <option value="off">Start</option>
+            <option value="on"><?php echo $translate['stop']; ?></option>
+            <option value="off"><?php echo $translate['start']; ?></option>
         </select>
     </div>
     <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
@@ -128,7 +135,7 @@ $translate = array(
 
 <div data-role="page" id="dialogPage">
     <div data-theme="<?php echo $mobileConfig['errorTheme']; ?>" data-role="header" id="dialogTitle">
-        <h1>Error</h1>
+        <h1><?php echo $translate['error']; ?></h1>
     </div>
     <div data-role="content" id="dialogMessage">
 

@@ -123,7 +123,7 @@ function setActiveTask(task)
         $('#tasks').selectmenu('enable');
         $('#recorder').val('off');
         window.clearTimeout(lastTimer);
-        setWindowState('Kimai Mobile: Easy mobile Time-Tracking v0.2', 'Please select the task you want to start');
+        setWindowState('Kimai: Easy mobile Time-Tracking v0.2', Kimai.getTranslation('task_title'));
     }
     else
     {
@@ -158,14 +158,14 @@ function updateTimer(start)
         seconds = "0" + seconds;
     }
     var formTime = hours + ':' + minutes + ':' + seconds;
-    setWindowState(formTime, 'You are now working: ' + formTime);
+    setWindowState(formTime, Kimai.getTranslation('working_time').replace("{0}", formTime));
     lastTimer = window.setTimeout('updateTimer('+start+')', 1000);
 }
 
 function setProjects(projects)
 {
     if (projects == null) {
-        Kimai.error('Sorry, but the project list could not be loaded');
+        Kimai.error(Kimai.getTranslation('error_projects'));
     }
 
     Kimai.debug('setProjects', projects);
@@ -181,7 +181,7 @@ function setProjects(projects)
 function setTasks(tasks)
 {
     if (tasks == null) {
-        Kimai.error('Sorry, but the task list could not be loaded');
+        Kimai.error(Kimai.getTranslation('error_tasks'));
     }
 
     Kimai.debug('setTasks', tasks);
@@ -241,5 +241,3 @@ var KimaiLogger = {
         console.log(value);
     }
 }
-
-Kimai.setLogger(KimaiLogger);
