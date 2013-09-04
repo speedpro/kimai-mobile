@@ -20,7 +20,7 @@ $(document).on('pageshow', '#recorderPage', function(event, ui){
     initRecorderPage();
 
     // actions on start and stop tasks
-    $('#recorder').bind('change', function() {
+    $('#recorder').bind('click', function() {
         if(checkAuthentication(true)) {
             startStopRecord();
         }
@@ -122,7 +122,8 @@ function setActiveTask(task)
     {
         $('#projects').selectmenu('enable');
         $('#tasks').selectmenu('enable');
-        $('#recorder').val('off');
+        $('#recorder').val(Kimai.getTranslation('start'));
+        //$('#recorder').buttonMarkup({ icon: "delete" }).button('refresh');
         window.clearTimeout(lastTimer);
         setWindowState('Kimai: Easy mobile Time-Tracking v0.2', Kimai.getTranslation('task_title'));
     }
@@ -132,11 +133,12 @@ function setActiveTask(task)
         $('#tasks').val(task.activityID);
         $('#projects').selectmenu('disable');
         $('#tasks').selectmenu('disable');
-        $('#recorder').val('on');
+        $('#recorder').val(Kimai.getTranslation('stop'));
+        //$('#recorder').buttonMarkup({ icon: "check" }).button('refresh');
         updateTimer(task.start);
     }
 
-    $('#recorder').slider('refresh');
+    $('#recorder').button('refresh');
     $('#projects').selectmenu('refresh');
     $('#tasks').selectmenu('refresh');
 }
@@ -195,23 +197,20 @@ function setTasks(tasks)
     $('#tasks').selectmenu('refresh');
 }
 
-
 function validateStartStopButton()
 {
-    var mySlider   = $('#recorder');
-    var myProjects = $('#projects');
-    var myTasks    = $('#tasks');
+    var myStartStop = $('#recorder');
+    var myProjects  = $('#projects');
+    var myTasks     = $('#tasks');
 
     // switch the start/stop button
     if (myTasks.val() != '' && myProjects.val() != '') {
-        mySlider.slider('enable');
-        mySlider.parent().find('span.ui-icon').removeClass('ui-icon-alert').addClass('ui-icon-check');
+        myStartStop.button('enable');
     } else {
-        mySlider.slider('disable');
-        mySlider.parent().find('span.ui-icon').removeClass('ui-icon-check').addClass('ui-icon-alert');
+        myStartStop.button('disable');
     }
 
-    mySlider.slider('refresh');
+    myStartStop.button('refresh');
 }
 
 function validateLoginButton()

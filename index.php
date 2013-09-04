@@ -111,7 +111,7 @@ $mobileConfig = array(
                 <input name="password" id="password" placeholder="" value="" type="password" />
             </fieldset>
         </div>
-        <button id="btnLogin" disabled="disabled" data-inline="true" data-icon="alert"><?php echo $translate['login_btn']; ?></button>
+        <button id="btnLogin" disabled="disabled" data-inline="true" data-icon="star"><?php echo $translate['login_btn']; ?></button>
     </div>
     <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
         <h3>
@@ -144,7 +144,7 @@ $mobileConfig = array(
                     </select>
         </fieldset>
         </div>
-        <input data-inline="true" type="button" id="recorder" name="recorder" data-theme="c" value="<?php echo $translate['start']; ?>" />
+        <input data-inline="true" type="button" id="recorder" name="recorder" data-icon="check" data-theme="c" value="<?php echo $translate['start']; ?>" />
     </div>
     <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
         <h3>
