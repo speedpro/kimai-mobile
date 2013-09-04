@@ -10,13 +10,7 @@
  */
 lastTimer = null;
 
-// this might be moved to the global scope instead!
-$(document).bind('pageinit', function() {
-    var obj = $.mobile.path.parseUrl(location.href);
-    Kimai.setJsonApi(obj.domain + obj.directory + '../core/json.php');
-});
-
-$('#recorderPage').live('pageshow', function(event, ui){
+$(document).on('pageshow', '#recorderPage', function(event, ui){
 
     // make sure only authenticated user can enter this page
     if (!checkAuthentication(true)) {
@@ -47,7 +41,7 @@ $('#recorderPage').live('pageshow', function(event, ui){
  * Running when page loads.
  * Initializes the environment and attaches some action handler to buttons.
  */
-$( document ).delegate("#loginpage", "pageinit", function() {
+$(document).delegate("#loginpage", "pageinit", function() {
     $('#password').bind('change keydown keypress keyup', function(){
         validateLoginButton();
     });
@@ -67,6 +61,13 @@ $( document ).delegate("#loginpage", "pageinit", function() {
         }
     });
 });
+
+function setApiUrl(apiUrl)
+{
+    Kimai.setJsonApi(apiUrl);
+    $('#jsonUrl').text(apiUrl);
+
+}
 
 function initRecorderPage()
 {
@@ -236,7 +237,6 @@ var KimaiLogger = {
     },
 
     debug: function(title, value) {
-        return;
         console.log(' ==========> ' + title);
         console.log(value);
     }
