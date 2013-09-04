@@ -79,6 +79,20 @@ var Kimai =
     },
 
     /**
+     * Tries to reach the Kimai API and returns true on success.
+     *
+     * @returns {boolean}
+     */
+    ping: function()
+    {
+        if (typeof this.server.error != 'undefined' && this.server.error === true) {
+            return false;
+        }
+
+        return true;
+    },
+
+    /**
      * Retrieve a list ob project objects.
      *
      * @return array
@@ -107,6 +121,10 @@ var Kimai =
     {
         var result = this._doApiCall('getActiveRecording');
         this.debug('getRunningTask', result);
+
+        if (typeof result.error != 'undefined' && typeof result.error.msg != 'undefined') {
+            return null;
+        }
 
         if (typeof result[0] == 'undefined') {
             return null;
@@ -209,15 +227,16 @@ var Kimai =
     },
 
     /**
-     * Show error message
+     * Show error message.
+     *
+     * @param string message
      */
-    error: function(msg)
+    error: function(message)
     {
         if (this.logger !== null) {
-            this.logger.error(msg);
+            this.logger.error(message);
         }
     },
-
 
     /**
      * Show a debug message.

@@ -96,3 +96,4 @@ div.ui-footer a.ui-link { color: #fff !important; text-decoration: none; }
 div.ui-footer a.ui-link:hover { color: #2489CE !important; text-decoration: underline; }
 #projects-button { outline: none; }
 #tasks-button { outline: none; }
+#jsonUrl {font-weight:bold;}

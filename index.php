@@ -17,8 +17,16 @@
  * along with Kimai; If not, see <http://www.gnu.org/licenses/>.
  */
 
+// ATTENTION: You can change this setting, if you did not install mobile into the Kimai base directory
+$basePath = '';
+$basePath = '/../kimai/core/';
+
+// ####################################################################################
+// ##### MOBILE APP CODE BELOW - YOU LIKELY DO NOT WANT TO CHANGE CODE AFTER HERE #####
+// ####################################################################################
+
 // load translations
-$translate = include(dirname(__FILE__) . '/language/en.php');
+$translate = require_once(dirname(__FILE__) . '/language/en.php');
 
 // some configurations for the mobile app
 $mobileConfig = array(
@@ -37,24 +45,41 @@ $mobileConfig = array(
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Kimai: mobile Time-Tracking v0.2</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<title>Kimai: mobile Time-Tracking v0.3</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
     <link rel="stylesheet"  href="kimai/kimai.mobile.css" />
     <script src="kimai/kimai.class.js"></script>
 	<script src="kimai/kimai.mobile.js"></script>
     <script src="json/json2.js"></script>
     <script src="json/jquery.zend.jsonrpc.js"></script>
     <script>
-    $(document).ready(function(){
+    $(document).delegate('#loginpage', 'pageinit', function(event, ui){
         <?php
         foreach($translate as $key => $value) {
             echo 'Kimai.addTranslation("'.$key.'", "'.$value.'");'. PHP_EOL;
         }
         ?>
 
+        // for debugging purpose
         Kimai.setLogger(KimaiLogger);
+
+        <?php if (isset($basePath) && !empty($basePath)) { ?>
+            // Use the manually configured location
+            var apiUrl = '<?php echo $basePath; ?>/core/json.php';
+        <?php } else { ?>
+            // Use the default URL, based on the current location
+            var obj = $.mobile.path.parseUrl(location.href);
+            var apiUrl = obj.domain + obj.directory + '../core/json.php';
+        <?php } ?>
+
+        setApiUrl(apiUrl);
+
+        // check if the Kimai API is reachable
+        if (!Kimai.ping()) {
+            $.mobile.changePage('#errorPage', {changeHash: false});
+        }
     });
     </script>
 </head>
@@ -86,7 +111,7 @@ $mobileConfig = array(
                 <input name="password" id="password" placeholder="" value="" type="password" />
             </fieldset>
         </div>
-        <button id="btnLogin" disabled="disabled" data-inline="true" data-icon="alert"><?php echo $translate['login_btn']; ?></button>
+        <button id="btnLogin" disabled="disabled" data-inline="true" data-icon="star"><?php echo $translate['login_btn']; ?></button>
     </div>
     <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
         <h3>
@@ -107,24 +132,39 @@ $mobileConfig = array(
         </h2>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
-                <label for="projects" class="select"><?php echo $translate['choose_project']; ?></label>
-                <select name="projects" id="projects">
 
-                </select>
-            </fieldset>
-        </div>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
-                <select name="tasks" id="tasks">
+                    <label for="projects" class="select"><?php echo $translate['choose_project']; ?></label>
+                    <select name="projects" id="projects">
 
-                </select>
-            </fieldset>
+                    </select>
+
+                    <label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
+                    <select name="tasks" id="tasks">
+
+                    </select>
+        </fieldset>
         </div>
-        <select id="recorder" name="recorder" data-role="slider" data-theme="c">
-            <option value="on"><?php echo $translate['stop']; ?></option>
-            <option value="off"><?php echo $translate['start']; ?></option>
-        </select>
+        <input data-inline="true" type="button" id="recorder" name="recorder" data-icon="check" data-theme="c" value="<?php echo $translate['start']; ?>" />
+    </div>
+    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
+        <h3>
+            <a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a>
+        </h3>
+    </div>
+</div>
+
+<div data-role="page" id="errorPage">
+    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
+        <h5>
+            ERROR - Kimai Time Tracking
+        </h5>
+    </div>
+    <div data-role="content">
+        <h2>
+            Kimai not found
+        </h2>
+        <p>Your Kimai installation could not be found, please check the $basePath settings in index.php</p>
+        <p>API location is configured to: <span id="jsonUrl"></span></p>
     </div>
     <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
         <h3>
