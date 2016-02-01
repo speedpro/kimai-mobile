@@ -122,7 +122,7 @@ $mobileConfig = array(
 				<select name="projects" id="projects"></select>
 				<label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
 				<select name="tasks" id="tasks"></select>
-		</fieldset>
+			</fieldset>
 		</div>
 		<input data-inline="true" type="button" id="recorder" name="recorder" data-icon="check" data-theme="c" value="<?php echo $translate['start']; ?>" />
 	</div>
