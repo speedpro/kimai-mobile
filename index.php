@@ -30,9 +30,9 @@ $translate = require_once(dirname(__FILE__) . '/language/en.php');
 
 // some configurations for the mobile app
 $mobileConfig = array(
-    'headerFooterTheme' => 'a',
-    'formTheme'         => 'a',
-    'errorTheme'        => 'b'
+	'headerFooterTheme' => 'a',
+	'formTheme'         => 'a',
+	'errorTheme'        => 'b'
 );
 
 /**
@@ -46,140 +46,112 @@ $mobileConfig = array(
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Kimai: mobile Time-Tracking v0.3</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-    <link rel="stylesheet"  href="kimai/kimai.mobile.css" />
-    <script src="kimai/kimai.class.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<link rel="stylesheet" href="kimai/kimai.mobile.css" />
+	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<script src="kimai/kimai.class.js"></script>
 	<script src="kimai/kimai.mobile.js"></script>
-    <script src="json/json2.js"></script>
-    <script src="json/jquery.zend.jsonrpc.js"></script>
-    <script>
-    $(document).delegate('#loginpage', 'pageinit', function(event, ui){
-        <?php
-        foreach($translate as $key => $value) {
-            echo 'Kimai.addTranslation("'.$key.'", "'.$value.'");'. PHP_EOL;
-        }
-        ?>
+	<script src="json/json2.js"></script>
+	<script src="json/jquery.zend.jsonrpc.js"></script>
+	<script>
+	$(document).delegate('#loginpage', 'pageinit', function(event, ui){
+		<?php
+		foreach($translate as $key => $value) {
+			echo 'Kimai.addTranslation("'.$key.'", "'.$value.'");'. PHP_EOL;
+		}
+		?>
 
-        // for debugging purpose
-        Kimai.setLogger(KimaiLogger);
+		// for debugging purpose
+		Kimai.setLogger(KimaiLogger);
 
-        <?php if (isset($basePath) && !empty($basePath)) { ?>
-            // Use the manually configured location
-            var apiUrl = '<?php echo $basePath; ?>/core/json.php';
-        <?php } else { ?>
-            // Use the default URL, based on the current location
-            var obj = $.mobile.path.parseUrl(location.href);
-            var apiUrl = obj.domain + obj.directory + '../core/json.php';
-        <?php } ?>
+		<?php if (isset($basePath) && !empty($basePath)) { ?>
+			// Use the manually configured location
+			var apiUrl = '<?php echo $basePath; ?>/core/json.php';
+		<?php } else { ?>
+			// Use the default URL, based on the current location
+			var obj = $.mobile.path.parseUrl(location.href);
+			var apiUrl = obj.domain + obj.directory + '../core/json.php';
+		<?php } ?>
 
-        setApiUrl(apiUrl);
+		setApiUrl(apiUrl);
 
-        // check if the Kimai API is reachable
-        if (!Kimai.ping()) {
-            $.mobile.changePage('#errorPage', {changeHash: false});
-        }
-    });
-    </script>
+		// check if the Kimai API is reachable
+		if (!Kimai.ping()) {
+			$.mobile.changePage('#errorPage', {changeHash: false});
+		}
+	});
+	</script>
 </head>
 <body>
 
 <div data-role="page" id="loginpage">
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
-        <h5>
-            Kimai Time Tracking
-        </h5>
-    </div>
-    <div id="loginForm" data-role="content">
-        <h2>
-            <?php echo $translate['login_title']; ?>
-        </h2>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="username">
-                    <?php echo $translate['login_username']; ?>
-                </label>
-                <input name="username" id="username" autocapitalize="off" autocorrect="off" placeholder="" value="" type="text" />
-            </fieldset>
-        </div>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="password">
-                    <?php echo $translate['login_password']; ?>
-                </label>
-                <input name="password" id="password" placeholder="" value="" type="password" />
-            </fieldset>
-        </div>
-        <button id="btnLogin" disabled="disabled" data-inline="true" data-icon="star"><?php echo $translate['login_btn']; ?></button>
-    </div>
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
-        <h3>
-            <a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a>
-        </h3>
-    </div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
+		<h5>
+			Kimai Time Tracking
+		</h5>
+	</div>
+	<div id="loginForm" data-role="content">
+		<h2><?php echo $translate['login_title']; ?></h2>
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<label for="username"><?php echo $translate['login_username']; ?></label>
+				<input name="username" id="username" autocapitalize="off" autocorrect="off" placeholder="" value="" type="text" />
+			</fieldset>
+		</div>
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<label for="password"><?php echo $translate['login_password']; ?></label>
+				<input name="password" id="password" placeholder="" value="" type="password" />
+			</fieldset>
+		</div>
+		<button id="btnLogin" disabled="disabled" data-inline="true" data-icon="star"><?php echo $translate['login_btn']; ?></button>
+	</div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
+		<h3><a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a></h3>
+	</div>
 </div>
 
 <div data-role="page" id="recorderPage">
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
-        <h5>
-            Kimai Time Tracking
-        </h5>
-    </div>
-    <div data-role="content">
-        <h2 id="duration">
-            <?php echo $translate['task_title']; ?>
-        </h2>
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-
-                    <label for="projects" class="select"><?php echo $translate['choose_project']; ?></label>
-                    <select name="projects" id="projects">
-
-                    </select>
-
-                    <label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
-                    <select name="tasks" id="tasks">
-
-                    </select>
-        </fieldset>
-        </div>
-        <input data-inline="true" type="button" id="recorder" name="recorder" data-icon="check" data-theme="c" value="<?php echo $translate['start']; ?>" />
-    </div>
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
-        <h3>
-            <a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a>
-        </h3>
-    </div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
+		<h5>Kimai Time Tracking</h5>
+	</div>
+	<div data-role="content">
+		<h2 id="duration"><?php echo $translate['task_title']; ?></h2>
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<label for="projects" class="select"><?php echo $translate['choose_project']; ?></label>
+				<select name="projects" id="projects"></select>
+				<label for="tasks" class="select"><?php echo $translate['choose_task']; ?></label>
+				<select name="tasks" id="tasks"></select>
+		</fieldset>
+		</div>
+		<input data-inline="true" type="button" id="recorder" name="recorder" data-icon="check" data-theme="c" value="<?php echo $translate['start']; ?>" />
+	</div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
+		<h3><a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a></h3>
+	</div>
 </div>
 
 <div data-role="page" id="errorPage">
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
-        <h5>
-            ERROR - Kimai Time Tracking
-        </h5>
-    </div>
-    <div data-role="content">
-        <h2>
-            Kimai not found
-        </h2>
-        <p>Your Kimai installation could not be found, please check the $basePath settings in index.php</p>
-        <p>API location is configured to: <span id="jsonUrl"></span></p>
-    </div>
-    <div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
-        <h3>
-            <a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a>
-        </h3>
-    </div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
+		<h5>ERROR - Kimai Time Tracking</h5>
+	</div>
+	<div data-role="content">
+		<h2>Kimai not found</h2>
+		<p>Your Kimai installation could not be found, please check the $basePath settings in index.php</p>
+		<p>API location is configured to: <span id="jsonUrl"></span></p>
+	</div>
+	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="footer" data-position="fixed">
+		<h3><a class="backHome" href="http://www.kimai.org/" target="_blank">&copy; Copyright - Kimai Team</a></h3>
+	</div>
 </div>
 
 <div data-role="page" id="dialogPage">
-    <div data-theme="<?php echo $mobileConfig['errorTheme']; ?>" data-role="header" id="dialogTitle">
-        <h1><?php echo $translate['error']; ?></h1>
-    </div>
-    <div data-role="content" id="dialogMessage">
-
-    </div>
+	<div data-theme="<?php echo $mobileConfig['errorTheme']; ?>" data-role="header" id="dialogTitle">
+		<h1><?php echo $translate['error']; ?></h1>
+	</div>
+	<div data-role="content" id="dialogMessage"></div>
 </div>
 
 </body>
