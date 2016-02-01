@@ -87,9 +87,7 @@ $mobileConfig = array(
 
 <div data-role="page" id="loginpage">
 	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
-		<h5>
-			Kimai Time Tracking
-		</h5>
+		<h5>Kimai Time Tracking</h5>
 	</div>
 	<div id="loginForm" data-role="content">
 		<h2><?php echo $translate['login_title']; ?></h2>
