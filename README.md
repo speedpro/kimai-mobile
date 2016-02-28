@@ -25,10 +25,10 @@ please share your thoughts and feature requests at [our forum](http://forum.kima
 Installation
 ------------
 
-To install this mobile interface, just copy all the files of this directory
-into your kimai/ installation in a sub-directory called (for example) "mobile_new".
-Then point your browser to http://yourDomain/kimai/mobile_new/ and log in with your
-existing Kimai account.
+To install this mobile interface:
+- copy all the files into a sub-directory of your Kimai installation (e.g. mobile/)
+- point your browser to http://yourKimaiInstallation/mobile/ 
+- log in with your existing Kimai account
 
 Compatibility
 -------------

@@ -19,7 +19,7 @@
 
 // ATTENTION: You can change this setting, if you did not install mobile into the Kimai base directory
 $basePath = '';
-$basePath = '/../kimai/core/';
+$basePath = '/../';
 
 // ####################################################################################
 // ##### MOBILE APP CODE BELOW - YOU LIKELY DO NOT WANT TO CHANGE CODE AFTER HERE #####
