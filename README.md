@@ -19,8 +19,8 @@ Its a very lightweight solution made with only one HTML script, a couple of
 Javascript files and some spicy CSS sugar on top.
 
 Please note, that this is the first (experimental) release and many features of the 
-complete version are missing. We plan to add more features soon, until then
-please share your thoughts and feature requests at [our forum](http://forum.kimai.org).
+complete version are missing. We don't have plans to add more features soon, but we'd like to hear 
+your about thoughts and feature requests at [the issue tracker](https://github.com/kimai/kimai-mobile/issues).
 
 Installation
 ------------
