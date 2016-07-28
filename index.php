@@ -18,7 +18,8 @@
  */
 
 // ATTENTION: You can change this setting, if you did not install mobile into the Kimai base directory
-$basePath = '/../';
+// base path with trailing slash!
+$basePath = '../';
 
 // ####################################################################################
 // ##### MOBILE APP CODE BELOW - YOU LIKELY DO NOT WANT TO CHANGE CODE AFTER HERE #####
@@ -66,7 +67,7 @@ $mobileConfig = array(
 
 		<?php if (isset($basePath) && !empty($basePath)) { ?>
 			// Use the manually configured location
-			var apiUrl = '<?php echo $basePath; ?>/core/json.php';
+			var apiUrl = '<?php echo $basePath; ?>core/json.php';
 		<?php } else { ?>
 			// Use the default URL, based on the current location
 			var obj = $.mobile.path.parseUrl(location.href);
