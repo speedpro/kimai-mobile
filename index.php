@@ -81,7 +81,7 @@ $mobileConfig = array(
 		}
 	});
 	</script>
-	<link href="favicon.ico" rel="shortcut icon"></link>
+	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
 <div data-role="page" id="loginpage">
