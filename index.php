@@ -18,8 +18,8 @@
  */
 
 // ATTENTION: You can change this setting, if you did not install mobile into the Kimai base directory
-$basePath = '';
-$basePath = '/../';
+// base path with trailing slash!
+$basePath = '../';
 
 // ####################################################################################
 // ##### MOBILE APP CODE BELOW - YOU LIKELY DO NOT WANT TO CHANGE CODE AFTER HERE #####
@@ -38,14 +38,14 @@ $mobileConfig = array(
 /**
  * This file is the "Mobile Kimai interface".
  *
- * @author Kevin Papst <kpapst@gmx.net>
+ * @author Kevin Papst
  */
 ?><!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Kimai: mobile Time-Tracking v0.3</title>
+	<title>Kimai</title>
 	<link rel="stylesheet" href="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 	<link rel="stylesheet" href="kimai/kimai.mobile.css" />
 	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -67,7 +67,7 @@ $mobileConfig = array(
 
 		<?php if (isset($basePath) && !empty($basePath)) { ?>
 			// Use the manually configured location
-			var apiUrl = '<?php echo $basePath; ?>/core/json.php';
+			var apiUrl = '<?php echo $basePath; ?>core/json.php';
 		<?php } else { ?>
 			// Use the default URL, based on the current location
 			var obj = $.mobile.path.parseUrl(location.href);
@@ -82,9 +82,9 @@ $mobileConfig = array(
 		}
 	});
 	</script>
+	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
-
 <div data-role="page" id="loginpage">
 	<div data-theme="<?php echo $mobileConfig['headerFooterTheme']; ?>" data-role="header" data-position="fixed">
 		<h5>Kimai Time Tracking</h5>
@@ -151,6 +151,5 @@ $mobileConfig = array(
 	</div>
 	<div data-role="content" id="dialogMessage"></div>
 </div>
-
 </body>
 </html>
